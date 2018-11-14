@@ -10,14 +10,22 @@ import Home from './components/home';
 const config = {
   issuer: 'https://dev-387262.oktapreview.com/oauth2/default',
   redirect_uri: window.location.origin + '/implicit/callback',
-  client_id: '0oahgxzktd6OPlsYW0h7'
+  client_id: '0oahgxzktd6OPlsYW0h7',
+  idps: [
+    { type: 'GOOGLE', id: '0oahhzjogklxbSYth0h7' }
+  ],
+  idp: '0oahhzjogklxbSYth0h7',
+  authParams: {
+    responseMode: 'query'
+  }
 }
 
 class App extends Component {
   render() {
+    console.log(config);
     return (
       <React.Fragment>
-        <Security issuer={config.issuer} client_id={config.client_id} redirect_uri={config.redirect_uri}>
+        <Security {...config}>
           <NavBar />
           <main className="container">
             <Switch>
@@ -30,7 +38,7 @@ class App extends Component {
             </Switch>
           </main>
         </Security>
-      </React.Fragment>
+      </React.Fragment >
     );
   }
 }
