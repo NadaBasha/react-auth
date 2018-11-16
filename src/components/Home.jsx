@@ -79,6 +79,11 @@ export default withAuth(class Home extends Component {
     this.setState({ accessToken, idToken, parsedAccessToken, parsedIdToken });
   }
 
+  routeChange() {
+    let path = '/loginForm';
+    this.props.history.push(path);
+  }
+
   render() {
     if (this.state.authenticated === null) return null;
 
@@ -86,17 +91,23 @@ export default withAuth(class Home extends Component {
     if (this.state.authenticated) {
       button = <button onClick={() => this.logout()}>Logout</button>;
     } else {
-      button = <button onClick={() => this.login()}>Login</button>;
+      button =
+        <React.Fragment>
+          <button onClick={() => this.routeChange()}>Customized Login Form</button>
+          <br></br>
+          <button onClick={() => this.login()}>Login By Okta</button>
+          <br></br>
+          <button onClick={() => this.loginByGoogle()}>Login by Google</button>
+          <br></br>
+          <button onClick={() => this.loginByMicrosoft()}>Login by Microsoft</button>
+        </React.Fragment>
+        ;
     }
 
     return (<React.Fragment>
       {button}
       <br></br>
       <button onClick={() => this.getTokens()}>Get Authentication</button>
-      <br></br>
-      <button onClick={() => this.loginByGoogle()}>Login by Google</button>
-      <br></br>
-      <button onClick={() => this.loginByMicrosoft()}>Login by Microsoft</button>
       <br></br>
       <label>{this.state.accessToken}</label>
       <label>{this.state.idToken}</label>
