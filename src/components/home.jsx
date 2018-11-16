@@ -30,6 +30,34 @@ export default withAuth(class Home extends Component {
     this.props.auth.login('/');
   }
 
+  async loginByGoogle() {
+    const responseType = this.props.auth._config.response_type
+      || ['id_token', 'token'];
+
+    const scopes = this.props.auth._config.scope
+      || ['openid', 'email', 'profile'];
+
+    this.props.auth._oktaAuth.token.getWithRedirect({
+      responseType: responseType,
+      scopes: scopes,
+      idp: '0oahhzjogklxbSYth0h7'
+    });
+  }
+
+  async loginByMicrosoft() {
+    const responseType = this.props.auth._config.response_type
+      || ['id_token', 'token'];
+
+    const scopes = this.props.auth._config.scope
+      || ['openid', 'email', 'profile'];
+
+    this.props.auth._oktaAuth.token.getWithRedirect({
+      responseType: responseType,
+      scopes: scopes,
+      idp: '0oahi0gjucsAXnhnK0h7'
+    });
+  }
+
   async logout() {
     // Redirect to '/' after logout
     this.props.auth.logout('/');
@@ -46,6 +74,8 @@ export default withAuth(class Home extends Component {
     let idToken = await this.props.auth.getIdToken();
     let parsedAccessToken = this.parseJwt(accessToken);
     let parsedIdToken = this.parseJwt(idToken);
+    console.log(parsedAccessToken);
+    console.log(parsedIdToken);
     this.setState({ accessToken, idToken, parsedAccessToken, parsedIdToken });
   }
 
@@ -62,12 +92,11 @@ export default withAuth(class Home extends Component {
     return (<React.Fragment>
       {button}
       <br></br>
-      <button onClick={() => this.getTokens()}>Get Authentication</button><br></br>
+      <button onClick={() => this.getTokens()}>Get Authentication</button>
       <br></br>
-      <a href="https://dev-387262.oktapreview.com/oauth2/v1/authorize?idp=0oahhzjogklxbSYth0h7&client_id=0oahgxzktd6OPlsYW0h7&response_type=id_token&response_mode=fragment&scope=openid&redirect_uri=http://localhost:3000/implicit/callback&state=WM6D&nonce=YsG76jo">Login With Google</a>
-
+      <button onClick={() => this.loginByGoogle()}>Login by Google</button>
       <br></br>
-      <a href="https://dev-387262.oktapreview.com/oauth2/v1/authorize?idp=0oahi0gjucsAXnhnK0h7&client_id=0oahgxzktd6OPlsYW0h7&response_type=id_token&response_mode=fragment&scope=openid&redirect_uri=http://localhost:3000/implicit/callback&state=WM6D&nonce=YsG76jo">Login With Microsoft</a>
+      <button onClick={() => this.loginByMicrosoft()}>Login by Microsoft</button>
       <br></br>
       <label>{this.state.accessToken}</label>
       <label>{this.state.idToken}</label>
