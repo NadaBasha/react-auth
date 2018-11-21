@@ -1,14 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from "react-router-dom";
+import { Security } from '@okta/okta-react';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+var baseUrl = 'https://dev-387262.oktapreview.com';
+const config = {
+    baseUrl: baseUrl,
+    issuer: baseUrl + '/oauth2/default',
+    redirect_uri: window.location.origin + '/implicit/callback',
+    client_id: '0oahgxzktd6OPlsYW0h7',
+    logo: '//logo.clearbit.com/okta.com',
+    idps: [
+        { type: 'GOOGLE', id: '0oahhzjogklxbSYth0h7' },
+        { type: 'MICROSOFT', id: '0oahi0gjucsAXnhnK0h7' }
+    ]
+}
+
 ReactDOM.render(
     <BrowserRouter>
-        <App />
+        <Security {...config}>
+            <App />
+        </Security>
     </BrowserRouter>,
     document.getElementById('root')
 );
