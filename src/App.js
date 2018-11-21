@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { Route, Redirect, Switch } from "react-router-dom";
 import { Security, ImplicitCallback } from '@okta/okta-react';
-import NavBar from './components/NavBar';
-import Shapes from './components/Shapes';
-import Users from './components/Users';
-import NotFound from './components/NotFound';
-import Home from './components/Home';
-import Login from './components/Login';
+const NavBar = lazy(() => import('./components/NavBar'));
+const Shapes = lazy(() => import('./components/Shapes'));
+const Users = lazy(() => import('./components/Users'));
+const NotFound = lazy(() => import('./components/NotFound'));
+const Login = lazy(() => import('./components/Login'));
 
 var baseUrl = 'https://dev-387262.oktapreview.com';
 const config = {
@@ -26,18 +25,20 @@ class App extends Component {
     return (
       <React.Fragment>
         <Security {...config}>
-          <NavBar />
-          <main className="container">
-            <Switch>
-              <Route path="/users" component={Users} />
-              <Route path="/shapes" component={Shapes} />
-              <Route path="/not-found" component={NotFound} />
-              <Route path="/" exact component={Home} />
-              <Route path="/implicit/callback" component={ImplicitCallback} />
-              <Route path="/loginForm" component={Login} />
-              <Redirect to="/not-found" />
-            </Switch>
-          </main>
+          <Suspense fallback={<div>Loading...</div>}>
+            <NavBar />
+            <main className="container">
+              <Switch>
+                <Route path="/users" component={Users} />
+                <Route path="/shapes" component={Shapes} />
+                <Route path="/not-found" component={NotFound} />
+                <Route path="/" exact component={Users} />
+                <Route path="/implicit/callback" component={ImplicitCallback} />
+                <Route path="/loginForm" component={Login} />
+                <Redirect to="/not-found" />
+              </Switch>
+            </main>
+          </Suspense>
         </Security>
       </React.Fragment >
     );
