@@ -23,12 +23,15 @@ class App extends Component {
   async checkAuthentication() {
     const authenticated = await this.props.auth.isAuthenticated();
     if (authenticated !== this.state.authenticated) {
-      if(authenticated){
+      if (authenticated) {
         let idToken = await this.props.auth.getIdToken();
-        this.setState({ authenticated, idToken: this.parseJwt(idToken) });      
+        let accessToken = await this.props.auth.getAccessToken();
+        console.log('idToken', this.parseJwt(idToken));
+        console.log('accessToken', this.parseJwt(accessToken));
+        this.setState({ authenticated, idToken: this.parseJwt(idToken) });
       }
-      else{
-        this.setState({ authenticated, idToken: null });      
+      else {
+        this.setState({ authenticated, idToken: null });
       }
     }
   }
@@ -42,7 +45,7 @@ class App extends Component {
       || ['id_token', 'token'];
 
     const scopes = this.props.auth._config.scope
-      || ['openid', 'email', 'profile'];
+      || ["openid", "profile", "email", "address", "phone", "offline_access"];
 
     this.props.auth._oktaAuth.token.getWithRedirect({
       responseType: responseType,
