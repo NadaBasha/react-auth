@@ -13,11 +13,15 @@ const config = {
     issuer: baseUrl + '/oauth2/default',
     redirect_uri: window.location.origin + '/implicit/callback',
     client_id: '0oahgxzktd6OPlsYW0h7',
+    //client_id: '0oahqn3s0uPxuua4S0h7',
     logo: '//logo.clearbit.com/okta.com',
     idps: [
         { type: 'GOOGLE', id: '0oahhzjogklxbSYth0h7' },
         { type: 'MICROSOFT', id: '0oahi0gjucsAXnhnK0h7' }
-    ]
+    ],
+    //idpDisplay: 'PRIMARY',
+    //scope: ['openid', 'email', 'profile', 'address', 'offline_access'],
+    //response_type: ['id_token', 'token', 'code']
 }
 
 ReactDOM.render(
