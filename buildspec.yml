@@ -1,11 +1,12 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - npm install
   build:
-    build:
-      commands:
-        - npm install
-        - npm run build
+    commands:
+      - npm run build
 
 artifacts:
   files:
