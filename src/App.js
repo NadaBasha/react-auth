@@ -40,34 +40,6 @@ class App extends Component {
     await this.checkAuthentication();
   }
 
-  async loginByGoogle() {
-    const responseType = this.props.auth._config.response_type
-      || ['id_token', 'token'];
-
-    const scopes = this.props.auth._config.scope
-      || ["openid", "profile", "email", "address", "phone", "offline_access"];
-
-    this.props.auth._oktaAuth.token.getWithRedirect({
-      responseType: responseType,
-      scopes: scopes,
-      idp: '0oahhzjogklxbSYth0h7'
-    });
-  }
-
-  async loginByMicrosoft() {
-    const responseType = this.props.auth._config.response_type
-      || ['id_token', 'token'];
-
-    const scopes = this.props.auth._config.scope
-      || ['openid', 'email', 'profile'];
-
-    this.props.auth._oktaAuth.token.getWithRedirect({
-      responseType: responseType,
-      scopes: scopes,
-      idp: '0oahi0gjucsAXnhnK0h7'
-    });
-  }
-
   async logout() {
     // Redirect to '/' after logout
     this.props.auth.logout('/');
@@ -84,9 +56,7 @@ class App extends Component {
       <React.Fragment>
         <UserProvider value={{ accessToken: this.state.accessToken, idToken: this.state.idToken }}>
           <NavBar authenticated={this.state.authenticated}
-            onLogout={() => this.logout()}
-            onGoogleLogin={() => this.loginByGoogle()}
-            onMicrosoftLogin={() => this.loginByMicrosoft()} />
+            onLogout={() => this.logout()} />
           <main className="container">
             <Switch>
               <Route path="/users" component={Users} />

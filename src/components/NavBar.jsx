@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 
 class NavBar extends Component {
     render() {
-        let { authenticated, onLogout, onGoogleLogin, onMicrosoftLogin } = this.props;
+        let { authenticated, onLogout } = this.props;
 
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -39,9 +39,7 @@ class NavBar extends Component {
                                     <button className="btn btn-sm btn-outline-success m-2 my-sm-0" onClick={onLogout} type="button">Logout</button>
                                 </React.Fragment>) :
                                 (<React.Fragment>
-                                    <NavItem path="/loginForm" name="Customized Login Form" />
-                                    <button className="btn btn-sm btn-outline-success m-2 my-sm-0" onClick={onGoogleLogin} type="button">Login by Google</button>
-                                    <button className="btn btn-sm btn-outline-success m-2 my-sm-0" onClick={onMicrosoftLogin} type="button">Login by Microsoft</button>
+                                    <NavItem path="/loginForm" name="Login" />
                                 </React.Fragment>)
                         }
                     </div>

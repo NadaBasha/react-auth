@@ -16,14 +16,19 @@ export default class OktaSignInWidget extends Component {
             },
             baseUrl: this.props.config.baseUrl,
             clientId: this.props.config.client_id,
-            redirectUri:this.props.config.redirect_uri,
+            redirectUri: this.props.config.redirect_uri,
             authParams: {
                 issuer: this.props.config.issuer,
                 responseType: ['id_token', 'token'],
                 scopes: ['openid', 'email', 'profile'],
             },
-            idps: this.props.config.idps
-
+            i18n: {
+                en: {
+                    'primaryauth.title': 'Sign in to Land.db'
+                }
+            },
+            idps: this.props.config.idps,
+            idpDisplay: 'PRIMARY'
         });
         this.widget.renderEl({ el }, this.props.onSuccess, this.props.onError);
     }

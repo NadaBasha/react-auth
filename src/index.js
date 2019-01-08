@@ -7,21 +7,17 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-var baseUrl = 'https://dev-387262.oktapreview.com';
+var baseUrl = 'https://auth.landdb.com';
 const config = {
     baseUrl: baseUrl,
-    issuer: baseUrl + '/oauth2/default',
+    issuer: baseUrl + '/oauth2/auscm85nULtgvMzWV355',
     redirect_uri: window.location.origin + '/implicit/callback',
-    client_id: '0oahgxzktd6OPlsYW0h7',
-    //client_id: '0oahqn3s0uPxuua4S0h7',
-    logo: '//logo.clearbit.com/okta.com',
+    client_id: '0oa71hm2iVMeweyJv356',
+    logo: 'http://www.agconnections.com/assets/images/icons/agc-logo-small-2.png',
     idps: [
-        { type: 'GOOGLE', id: '0oahhzjogklxbSYth0h7' },
-        { type: 'MICROSOFT', id: '0oahi0gjucsAXnhnK0h7' }
-    ],
-    //idpDisplay: 'PRIMARY',
-    //scope: ['openid', 'email', 'profile', 'address', 'offline_access'],
-    //response_type: ['id_token', 'token', 'code']
+        { type: 'GOOGLE', id: '0oaceqxjdfOdFMGUt355' },
+        { type: 'MICROSOFT', id: '0oacjef8kdbT7S4p8355' }
+    ]    
 }
 
 ReactDOM.render(
