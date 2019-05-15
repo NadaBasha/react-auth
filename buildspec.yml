@@ -9,6 +9,6 @@ phases:
       - cd $CODEBUILD_SRC_DIR; npm run build
 
 artifacts:
-  base-directory: build
+  base-directory: $CODEBUILD_SRC_DIR/build
   files:
     - '/**/*'
